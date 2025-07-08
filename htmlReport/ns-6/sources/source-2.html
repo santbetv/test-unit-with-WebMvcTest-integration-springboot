@@ -1,0 +1,94 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CuentaRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.aguzman.test.springboot.app.repositories</a>
+</div>
+
+<h1>Coverage Summary for Class: CuentaRepository (org.aguzman.test.springboot.app.repositories)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">CuentaRepository$MockitoMock$1023496046</td>
+  </tr>
+  <tr>
+    <td class="name">CuentaRepository$MockitoMock$1023496046$auxiliary$9bzZZyJ1</td>
+  </tr>
+  <tr>
+    <td class="name">CuentaRepository$MockitoMock$1023496046$auxiliary$wUw7sK5B</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.aguzman.test.springboot.app.repositories;
+&nbsp;
+&nbsp;import org.aguzman.test.springboot.app.models.Cuenta;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.data.jpa.repository.Query;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;public interface CuentaRepository extends JpaRepository&lt;Cuenta, Long&gt; {
+&nbsp;    @Query(&quot;select c from Cuenta c where c.persona=?1&quot;)
+&nbsp;    Optional&lt;Cuenta&gt; findByPersona(String persona);
+&nbsp;
+&nbsp;//    List&lt;Cuenta&gt; findAll();
+&nbsp;//    Cuenta findById(Long id);
+&nbsp;//    void update(Cuenta cuenta);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-07-07 00:03</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,193 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CuentaServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.aguzman.test.springboot.app.services</a>
+</div>
+
+<h1>Coverage Summary for Class: CuentaServiceImpl (org.aguzman.test.springboot.app.services)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CuentaServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (20/20)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CuentaServiceImpl$$EnhancerBySpringCGLIB$$6762a486</td>
+  </tr>
+  <tr>
+    <td class="name">CuentaServiceImpl$$EnhancerBySpringCGLIB$$6762a486$$FastClassBySpringCGLIB$$3d475dc1</td>
+  </tr>
+  <tr>
+    <td class="name">CuentaServiceImpl$$FastClassBySpringCGLIB$$18552c26</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (20/20)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.aguzman.test.springboot.app.services;
+&nbsp;
+&nbsp;import org.aguzman.test.springboot.app.models.Banco;
+&nbsp;import org.aguzman.test.springboot.app.models.Cuenta;
+&nbsp;import org.aguzman.test.springboot.app.repositories.BancoRepository;
+&nbsp;import org.aguzman.test.springboot.app.repositories.CuentaRepository;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.math.BigDecimal;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+&nbsp;public class CuentaServiceImpl implements CuentaService{
+&nbsp;    private CuentaRepository cuentaRepository;
+&nbsp;    private BancoRepository bancoRepository;
+&nbsp;
+<b class="fc">&nbsp;    public CuentaServiceImpl(CuentaRepository cuentaRepository, BancoRepository bancoRepository) {</b>
+<b class="fc">&nbsp;        this.cuentaRepository = cuentaRepository;</b>
+<b class="fc">&nbsp;        this.bancoRepository = bancoRepository;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    @Transactional(readOnly = true)
+&nbsp;    public List&lt;Cuenta&gt; findAll() {
+<b class="fc">&nbsp;        return cuentaRepository.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    @Transactional(readOnly = true)
+&nbsp;    public Cuenta findById(Long id) {
+<b class="fc">&nbsp;        return cuentaRepository.findById(id).orElseThrow();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    @Transactional
+&nbsp;    public Cuenta save(Cuenta cuenta) {
+<b class="fc">&nbsp;        return cuentaRepository.save(cuenta);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    @Transactional(readOnly = true)
+&nbsp;    public int revisarTotalTransferencias(Long bancoId) {
+<b class="fc">&nbsp;        Banco banco = bancoRepository.findById(bancoId).orElseThrow();</b>
+<b class="fc">&nbsp;        return banco.getTotalTransferencias();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    @Transactional(readOnly = true)
+&nbsp;    public BigDecimal revisarSaldo(Long cuentaId) {
+<b class="fc">&nbsp;        Cuenta cuenta = cuentaRepository.findById(cuentaId).orElseThrow();</b>
+<b class="fc">&nbsp;        return cuenta.getSaldo();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    @Transactional
+&nbsp;    public void transferir(Long numCuentaOrigen, Long numCuentaDestino, BigDecimal monto,
+&nbsp;                           Long bancoId) {
+&nbsp;
+<b class="fc">&nbsp;        Cuenta cuentaOrigen = cuentaRepository.findById(numCuentaOrigen).orElseThrow();</b>
+<b class="fc">&nbsp;        cuentaOrigen.debito(monto);</b>
+<b class="fc">&nbsp;        cuentaRepository.save(cuentaOrigen);</b>
+&nbsp;
+<b class="fc">&nbsp;        Cuenta cuentaDestino = cuentaRepository.findById(numCuentaDestino).orElseThrow();</b>
+<b class="fc">&nbsp;        cuentaDestino.credito(monto);</b>
+<b class="fc">&nbsp;        cuentaRepository.save(cuentaDestino);</b>
+&nbsp;
+<b class="fc">&nbsp;        Banco banco = bancoRepository.findById(bancoId).orElseThrow();</b>
+<b class="fc">&nbsp;        int totalTransferencias = banco.getTotalTransferencias();</b>
+<b class="fc">&nbsp;        banco.setTotalTransferencias(++totalTransferencias);</b>
+<b class="fc">&nbsp;        bancoRepository.save(banco);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-07-07 00:03</div>
+</div>
+</body>
+</html>
